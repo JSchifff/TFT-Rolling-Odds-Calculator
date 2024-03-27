@@ -102,7 +102,7 @@ function updateGraph() {
 // CALCULATIONS
 
 const totalUnits = [22, 20, 17, 10, 9];
-const distinctChamps = [13, 13, 13, 13, 8];
+const distinctChamps = [13, 13, 13, 12, 8];
 
 const costProbs = [		  // level
   [1,    0,    0,    0,    0],    // 1

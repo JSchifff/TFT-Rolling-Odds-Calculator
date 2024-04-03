@@ -139,7 +139,7 @@ function getCostProb(lvl, cost){ // 1-indexed
 // gold: Amount of gold you want to roll
 function getProbs(cost, lvl, a, b, gold, slots) {
   var mat = getTransitionMatrix(cost, lvl, a, b);
-  mat = power(mat, slots * Math.floor(gold/2));
+  mat = power(mat, 5 * Math.floor(gold/2));
 
   // Probabilities for exactly 0, 1, 2, ..., 9 of desired unit
   const pprob = mat[0] 

@@ -1,3 +1,4 @@
+
 document.getElementById("costRange").oninput = function(){
 	updateCost();
 	updateGraph();
@@ -20,6 +21,10 @@ document.getElementById("goldText").oninput = function(){
 	updateGraph();
 }
 
+document.getElementById("shopSlotsText").oninput = function(){
+	updateGraph();
+}
+
 function updateCost(){
 	var val = document.getElementById("costRange").value
 	document.getElementById("costOutput").innerHTML = val
@@ -37,6 +42,7 @@ var lvl = document.getElementById("lvlRange")
 var copies = document.getElementById("copiesText")
 var pool = document.getElementById("poolText")
 var gold = document.getElementById("goldText")
+var slots = document.getElementById("shopSlotsText")
 
 // Default graph
 
@@ -94,7 +100,10 @@ function updateGraph() {
 									parseInt(lvl.value),
 									parseInt(copies.value),
 									parseInt(pool.value),
-									parseInt(gold.value))[1].slice(1)
+									parseInt(gold.value),
+									parseInt(slots.value)
+								)[1].slice(1),
+									
 						}]
 	chart.update();
 }
@@ -128,9 +137,9 @@ function getCostProb(lvl, cost){ // 1-indexed
 // a: Number of copies of this unit already out
 // b: Number of units of the same cost already out
 // gold: Amount of gold you want to roll
-function getProbs(cost, lvl, a, b, gold) {
+function getProbs(cost, lvl, a, b, gold, slots) {
   var mat = getTransitionMatrix(cost, lvl, a, b);
-  mat = power(mat, 5*Math.floor(gold/2));
+  mat = power(mat, slots * Math.floor(gold/2));
 
   // Probabilities for exactly 0, 1, 2, ..., 9 of desired unit
   const pprob = mat[0] 
@@ -203,3 +212,6 @@ function power(a, n){
 	}
 	return newmat;
 }
+
+
+updateGraph()

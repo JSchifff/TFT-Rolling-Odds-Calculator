@@ -21,9 +21,9 @@ document.getElementById("goldText").oninput = function(){
 	updateGraph();
 }
 
-document.getElementById("shopSlotsText").oninput = function(){
-	updateGraph();
-}
+// document.getElementById("shopSlotsText").oninput = function(){
+// 	updateGraph();
+// }
 
 function updateCost(){
 	var val = document.getElementById("costRange").value

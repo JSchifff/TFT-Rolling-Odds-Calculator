@@ -121,8 +121,8 @@ const costProbs = [		  // level
   [0.45, 0.33, 0.20, 0.02, 0],    // 5
   [0.30, 0.40, 0.25, 0.05, 0],    // 6
   [0.19, 0.30, 0.40, 0.10, 0.01], // 7
-  [0.18, 0.25, 0.32, 0.22, 0.03], // 8
-  [0.10, 0.20, 0.25, 0.35, 0.10], // 9
+  [0.18, 0.27, 0.32, 0.20, 0.03], // 8
+  [0.15, 0.20, 0.25, 0.30, 0.10], // 9
   [0.05, 0.10, 0.20, 0.40, 0.25], // 10
   [0.01, 0.02, 0.12, 0.50, 0.35]  // 11
 ];
@@ -137,8 +137,8 @@ function getCostProb(lvl, cost){ // 1-indexed
 // a: Number of copies of this unit already out
 // b: Number of units of the same cost already out
 // gold: Amount of gold you want to roll
-function getProbs(cost, lvl, a, b, gold, slots) {
-  var mat = getTransitionMatrix(cost, lvl, a, b);
+function getProbs(cost, lvl, copiesOfUnitOut, unitsOfCostOut, gold, slots) {
+  var mat = getTransitionMatrix(cost, lvl, copiesOfUnitOut, unitsOfCostOut);
   mat = power(mat, slots * Math.floor(gold/2));
 
   // Probabilities for exactly 0, 1, 2, ..., 9 of desired unit
@@ -157,7 +157,7 @@ function getProbs(cost, lvl, a, b, gold, slots) {
   return [pprob, cprob];
 }
 
-function getTransitionMatrix(cost, lvl, a, b){
+function getTransitionMatrix(cost, lvl, copiesOfUnitOut, unitsOfCostOut){
   const mat = [];
   for (let i = 0; i < 10; i++) {
     const newRow = [];
@@ -166,7 +166,7 @@ function getTransitionMatrix(cost, lvl, a, b){
       	newRow.push(1); // from X >= 9 to X >= 9, probability is 1
       	continue;
       }
-      const p = getTransitionProb(cost, lvl, a + i, b + i);
+      const p = getTransitionProb(cost, lvl, copiesOfUnitOut + i, unitsOfCostOut + i);
       if (j == i) {
         newRow.push(1 - p);
       } else if (j == i + 1) {
